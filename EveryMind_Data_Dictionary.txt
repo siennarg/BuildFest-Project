@@ -1,0 +1,209 @@
+EVERYMIND "UNDERSTANDING 988" TRAINING SURVEY - DATA DICTIONARY
+================================================================
+
+SOURCE FILE : BuildFest_EveryMind_Survey_Data_FULL.xlsx
+ROWS        : 1,299 (one row per respondent; no duplicate IDs)
+COLUMNS     : 26 (20 from the survey + 6 created during cleaning)
+SURVEY DATES: 2025-10-21 to 2026-10-25 (system timestamps)
+DESIGN      : Retrospective pre/post. Respondents rate their skills now,
+              then "think back to before" the training and rate them again.
+
+
+
+
+RATING SCALE (used by all columns marked 1-5)
+---------------------------------------------
+1 = Strongly disagree
+2 = Disagree
+3 = Neither agree nor disagree
+4 = Agree
+5 = Strongly agree
+
+Note: 24 rows in the presenter / organization items use off-scale labels
+("Very agree", "Satisfied"). These are left BLANK on purpose rather than
+guessed. The original survey spelled the middle option two ways
+("Neither agree nor disagree" and "Neither agree or disagree"); both map to 3.
+
+
+PART A - COLUMNS FROM THE SURVEY (20)
+-------------------------------------
+
+response_id
+    Meaning : Unique response number.
+    Values  : Integer, 1 to 1299.
+    Blank   : 0
+
+survey_start
+    Meaning : Date and time the respondent opened the survey (system).
+    Values  : Datetime.
+    Blank   : 0
+    Note    : Most reliable time field in the dataset.
+
+survey_end
+    Meaning : Date and time the respondent submitted the survey (system).
+    Values  : Datetime.
+    Blank   : 0
+
+survey_language
+    Meaning : Language of the survey form.
+    Values  : English (1,280), Spanish (19).
+    Blank   : 0
+    Note    : Raw labels contained a hidden Unicode mark; removed.
+
+role
+    Meaning : What the respondent is ("Are you a...?").
+    Values  : Student; School staff member; Caregiver/parent;
+              Other (e.g., community member).
+    Blank   : 0
+    Note    : Multi-select. Multiple roles are separated by ";" and many
+              entries have a trailing ";". About 60+ rows list more than one
+              role.
+
+training_date_reported
+    Meaning : Date of the training, as typed by the respondent.
+    Values  : Date.
+    Blank   : 3
+    Note    : Self-entered, so less reliable than the timestamps. Often 1-3
+              weeks before the survey (up to 78 days). One row is dated
+              after its survey.
+
+county
+    Meaning : County the training is affiliated with.
+    Values  : Anne Arundel (~72%), Prince George's (~24%), Montgomery,
+              Queen Anne's, Fairfax, Harris (after cleaning).
+    Blank   : 0
+    Note    : 15 raw spellings (trailing spaces, "County" suffix, etc.)
+              reduced to 6. State for Harris is not given.
+
+post_identify_crisis
+    Meaning : After training: "I can identify mental health challenges
+              and crises."
+    Values  : 1-5
+    Blank   : 0
+
+post_describe_988
+    Meaning : After training: "I can describe 988 and how it works."
+    Values  : 1-5
+    Blank   : 0
+
+post_know_when_988
+    Meaning : After training: "I know when to use 988."
+    Values  : 1-5
+    Blank   : 0
+
+pre_identify_crisis
+    Meaning : Looking back to before training: "I could identify mental
+              health challenges and crises."
+    Values  : 1-5
+    Blank   : 0
+    Note    : Retrospective, so it may overstate gains.
+
+pre_describe_988
+    Meaning : Looking back to before training: "I could describe 988 and
+              how it works."
+    Values  : 1-5
+    Blank   : 0
+
+pre_know_when_988
+    Meaning : Looking back to before training: "I knew when to use 988."
+    Values  : 1-5
+    Blank   : 0
+
+presenter_engaged
+    Meaning : "The presenter(s) engaged the participants."
+    Values  : 1-5
+    Blank   : ~151
+    Note    : Missing from some survey versions.
+
+presenter_knowledgeable
+    Meaning : "The presenter(s) knew the subject."
+    Values  : 1-5
+    Blank   : ~154
+    Note    : Missing from some survey versions.
+
+training_organized
+    Meaning : "The training was well organized."
+    Values  : 1-5
+    Blank   : ~158
+    Note    : Missing from some survey versions.
+
+recommend_score_0_10
+    Meaning : "How likely are you to recommend the Understanding 988
+              training to a friend or colleague?"
+    Values  : 0 (not at all likely) to 10 (extremely likely).
+    Blank   : 33
+    Note    : Source for Net Promoter Score (% scoring 9-10 minus % scoring
+              0-6). Unusual spike at 5 (151 responses vs 41 at 4).
+
+likely_to_call_988_0_10
+    Meaning : "How likely are you to call 988 if you or someone else is
+              experiencing a mental health challenge or crisis?"
+    Values  : 0-10
+    Blank   : 1,006
+    Note    : Only 293 people answered. In most sessions the question
+              appears to be absent from the form rather than skipped.
+
+text_most_valuable
+    Meaning : Free text: "What was the most valuable thing you learned
+              during the training?"
+    Values  : Text (some in Spanish).
+    Blank   : 236
+    Note    : Many entries are short phrases.
+
+text_how_to_improve
+    Meaning : Free text: "How can we improve this training in the future?"
+    Values  : Text (some in Spanish).
+    Blank   : 647
+    Note    : Many answers are "nothing" or "idk"; many others are questions
+              rather than suggestions.
+
+
+PART B - COLUMNS CREATED DURING CLEANING (6)
+--------------------------------------------
+
+duration_sec
+    Meaning : Seconds the respondent took to finish the survey.
+    Rule    : survey_end minus survey_start, in seconds.
+    Note    : Median is about 47 seconds; 16 responses took under 20 seconds.
+
+is_student
+    Meaning : True if "Student" was one of the roles ticked.
+    Rule    : role contains "Student".
+    Note    : Includes about 4 people who also ticked another role.
+
+gain_identify_crisis
+    Meaning : Self-reported change in ability to identify crises.
+    Rule    : post_identify_crisis minus pre_identify_crisis.
+    Values  : -4 to +4.
+
+gain_describe_988
+    Meaning : Self-reported change in ability to describe 988.
+    Rule    : post_describe_988 minus pre_describe_988.
+    Values  : -4 to +4.
+
+gain_know_when_988
+    Meaning : Self-reported change in knowing when to use 988.
+    Rule    : post_know_when_988 minus pre_know_when_988.
+    Values  : -4 to +4.
+
+exclude_candidate
+    Meaning : True if the respondent chose "Strongly disagree" on all six
+              pre/post skill items.
+    Rule    : All six pre/post columns equal 1.
+    Count   : 17 rows.
+    Note    : Review before dropping. A few of these respondents wrote
+              thoughtful comments, so they may not all be careless.
+
+
+CLEANING STEPS 
+--------------
+1. Removed hidden characters (non-breaking spaces, U+200E) and trimmed
+   whitespace in all text columns.
+2. Converted rating text to numbers (1-5).
+3. Standardized county names (15 spellings to 6).
+4. Converted survey_start and survey_end to real datetimes.
+5. Created the 6 columns listed in Part B.
+No rows were deleted.
+
+
+
