@@ -1,0 +1,4 @@
+
+Data Analysis:
+- Look at strongly agree with strongly disagree because scaling data tends to group at agree, disagree
+
