@@ -19,3 +19,12 @@ git push origin nazia
 
 To pull:
 git pull origin main
+
+Nazia Data Cleaning Changes 12:30am 11/6
+- General datacleaning 
+- Column renaming
+- Changed all Agree->Disagree scale to a 1-5 score so we can properly score the data
+- Consolidated columns with similar names (ie: Moco, Montgomery Co, Montogomery County)
+- Created Data Dictionary
+
+*All code was AI generated as well as dictionary information

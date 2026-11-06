@@ -1,5 +1,19 @@
 
 Data Analysis:
 - Look at strongly agree with strongly disagree because scaling data tends to group at agree, disagree
-- sophie is here
 
+AI Analysis:
+- "Before" ratings are recalled after the training (retrospective), which
+  tends to inflate gains.
+- Ratings are self-reported confidence, not tested knowledge.
+- No session or trainer ID, so presenter and school effects cannot be
+  separated from county.
+- Survey versions changed over time, so some questions exist for only part
+  of the sample.
+- About 83% of respondents are students, so overall averages mostly
+  describe students.
+- Spanish responses (19) are too few for separate conclusions.
+- Some comments contain phone numbers or personal stories. Redact or remove
+  before sharing the data.
+- Question wording for the presenter items was reconstructed from truncated
+  column headers. Check it against the original survey form.
